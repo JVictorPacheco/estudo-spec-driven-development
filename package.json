@@ -8,7 +8,8 @@
     "dev": "nodemon src/server.js",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:check": "node scripts/check-docs.js"
   },
   "keywords": [],
   "author": "",

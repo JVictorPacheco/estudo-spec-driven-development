@@ -31,3 +31,5 @@ Nenhum diretamente — os pontos de entrada HTTP reais são os arquivos `*Routes
 - Não existe um módulo `shared`/`common` para lógica de autorização reutilizável (`adminOnly`, `ownerOrAdmin`) — está duplicada em `categories`/`products` (admin) e reimplementada em `users` (dono ou admin). Ver diretriz nº 3 em `docs/ARQUITETURA-DO-SISTEMA.md`.
 - Três módulos (`orders`, `payments`, `cart`) acessam dados de outro domínio pulando a camada `service`/`repository` pública desse domínio (`productRepository` direto, tabela `orders` via Prisma direto). Isso é o principal ponto de acoplamento excessivo identificado na análise arquitetural — consulte cada README de módulo para o detalhe específico.
 - Para o contexto de negócio por trás destes módulos (fluxos, atores, propósito), consulte [`docs/OBJETIVO-DO-SISTEMA.md`](../../docs/OBJETIVO-DO-SISTEMA.md).
+- Risco de segurança transversal: `auth` permite autocadastro com `role: "ADMIN"` (ver `src/modules/auth/README.md` e `docs/ARQUITETURA-DO-SISTEMA.md`, risco nº 15).
+- O schema de dados que sustenta todos estes módulos está documentado em [`prisma/README.md`](../../prisma/README.md).

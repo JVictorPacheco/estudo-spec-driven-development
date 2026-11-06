@@ -100,6 +100,9 @@ Dependências diretas entre módulos de domínio (import cruzado):
 12. **Duplicação de middleware `adminOnly`**: implementado de forma idêntica em `categoryRoutes.js` e `productRoutes.js` — qualquer mudança de regra de admin exige edição em múltiplos lugares.
 13. **Refresh token gravado mas nunca consumido**: `authService` grava `refresh:<userId>` no Redis a cada login/registro, mas não existe endpoint `/refresh` ou lógica que leia essa chave — funcionalidade parcialmente implementada.
 14. **Ausência de testes automatizados no working tree**: `package.json` tem `jest`/`supertest` como devDependencies e um commit recente (`test(unit): add unit tests for cartService getCart behavior`) no histórico do git, mas não há nenhum arquivo `*.test.js` ou pasta de testes presente na árvore atual. **Hipótese**: os testes podem ter sido removidos, não commitados, ou estão fora do diretório analisado.
+15. **Escalada de privilégio no cadastro**: `authService.register` aceita `role` vindo do corpo da requisição (`role || 'USER'`) e `authValidators.js` não restringe o campo. Qualquer chamador anônimo pode se cadastrar como `ADMIN` enviando `role: "ADMIN"`. Detalhado em `src/modules/auth/README.md`.
+16. **Migrações Prisma não versionadas**: `prisma.config.ts` aponta para `prisma/migrations`, mas essa pasta não existe no repositório (apenas `schema.prisma`). O `npm run migrate` gera as migrações localmente, e elas não são rastreadas pelo git. Detalhado em `prisma/README.md`.
+17. **Documentação sem verificação automática**: até a introdução de `npm run docs:check` (`scripts/check-docs.js`), nada impedia uma pasta nova em `src/` de ficar sem README ou um README de perder seções obrigatórias. O script verifica só a estrutura. O conteúdo ainda precisa ser revisado manualmente.
 
 ## 9. Diretrizes para Futuras Implementações
 
@@ -115,6 +118,8 @@ Estas diretrizes devem ser seguidas por qualquer nova especificação (spec) imp
 8. **Erros de negócio lançados dentro de transações Prisma devem sempre ser `AppError` com código semântico**, nunca `Error` genérico, para preservar o status HTTP e o `code` corretos no `errorHandler`.
 9. **Toda alteração de senha de usuário deve reutilizar o mesmo helper de hashing usado no registro** (`bcrypt.hash`) — nunca persistir senha em texto plano.
 10. **Novas specs devem declarar explicitamente validators (`express-validator`) por endpoint**, seguindo o padrão já usado em `auth`, em vez de deixar a validação implícita dentro do service.
+11. **Nenhum campo de privilégio (`role`) pode ser aceito de input público**: cadastro público deve sempre criar `USER`; criação de `ADMIN` deve exigir um admin autenticado ou um processo fora da API.
+12. **Toda nova pasta em `src/` (e `prisma/`) deve ter README.md com as seções padrão**, e `npm run docs:check` deve passar antes de concluir a spec.
 
 ---
 *Este documento reflete o estado do código no momento da análise. Deve ser revisado sempre que uma mudança arquitetural significativa for introduzida (nova dependência crítica, novo padrão de comunicação entre módulos, mudança de convenção).*

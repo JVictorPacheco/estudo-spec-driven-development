@@ -69,3 +69,9 @@ npm run migrate
 - `POST /api/v1/auth/login`: Login
 - `GET /api/v1/cart`: Ver carrinho (Requer Auth Header `Authorization: Bearer <token>`)
 - `POST /api/v1/cart/items`: Adicionar item ao carrinho
+
+## Documentação
+
+- `docs/OBJETIVO-DO-SISTEMA.md` e `docs/ARQUITETURA-DO-SISTEMA.md`: documentos globais (base do Spec-Driven Development).
+- Cada pasta de `src/` e `prisma/` tem um `README.md` local.
+- `npm run docs:check`: verifica se todo README local e os documentos globais existem com as seções padrão. Rode antes de concluir qualquer spec.
