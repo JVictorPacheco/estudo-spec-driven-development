@@ -26,6 +26,9 @@
 - Tipos: **percentual** e **valor fixo**.
 - **Validade** (data de expiração) e **limite de usos**. O limite vale **nos dois níveis**: no total do cupom e por usuário.
 - **Percentual sempre inteiro** (5%, 10%, nunca 4,9%). Não existe percentual fracionado, e o valor é armazenado como inteiro.
+- **Faixa do percentual**: de 1 a 100. Com 100%, os itens elegíveis ficam gratuitos.
+- **Arredondamento**: o desconto em reais é arredondado para 2 casas, para o centavo mais próximo (half-up).
+- **Valor fixo maior que os itens elegíveis**: o desconto é limitado ao subtotal elegível, e o total nunca fica negativo.
 - **Cupom inválido não derruba o pedido**: se o cupom estiver esgotado, expirado ou inválido no checkout, o pedido segue **sem desconto**, sem erro agressivo para o cliente. O uso do cupom não é consumido nesse caso.
 - **Restrição a categoria ou produto**: o desconto vale só sobre os itens elegíveis.
 - Fora do escopo: valor mínimo do pedido.
@@ -62,9 +65,7 @@ Custo aceito: o cliente só vê o desconto no fim. Uma rota de pré-visualizaç�
 
 ## 5. Perguntas em aberto
 
-1. **Arredondamento do valor em reais**: o percentual é inteiro, mas o desconto resultante (por exemplo 10% de R$ 19,99) tem centavos. Qual regra de arredondamento? **Hipótese**: arredondar para 2 casas, para o centavo mais próximo (half-up).
-2. **Faixa do percentual**: **Hipótese**: de 1 a 100, e 100% zera os itens elegíveis.
-3. **Cupom com valor fixo maior que os itens elegíveis**: **Hipótese**: o desconto é limitado ao subtotal elegível, para o total nunca ficar negativo (já decidido).
+Nenhuma no momento para a spec de cupons. As três hipóteses anteriores foram confirmadas e viraram regras na seção 3.
 
 ## 6. Fora do escopo (por decisão ou por não ter sido pedido)
 
