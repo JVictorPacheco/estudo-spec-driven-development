@@ -24,7 +24,9 @@
 
 ### Regras decididas
 - Tipos: **percentual** e **valor fixo**.
-- **Validade** (data de expiração) e **limite de usos**.
+- **Validade** (data de expiração) e **limite de usos**. O limite vale **nos dois níveis**: no total do cupom e por usuário.
+- **Percentual sempre inteiro** (5%, 10%, nunca 4,9%). Não existe percentual fracionado, e o valor é armazenado como inteiro.
+- **Cupom inválido não derruba o pedido**: se o cupom estiver esgotado, expirado ou inválido no checkout, o pedido segue **sem desconto**, sem erro agressivo para o cliente. O uso do cupom não é consumido nesse caso.
 - **Restrição a categoria ou produto**: o desconto vale só sobre os itens elegíveis.
 - Fora do escopo: valor mínimo do pedido.
 - **Criação por seed por enquanto.** Uma rota de administração (CRUD por `ADMIN`) é evolução futura.
@@ -43,7 +45,9 @@ Custo aceito: o cliente só vê o desconto no fim. Uma rota de pré-visualizaç�
 - Modelo `Coupon`: código único, tipo (`PERCENT`/`FIXED`), valor, expiração, limite de usos, contador de usos e vínculo com categorias ou produtos elegíveis.
 - `Order` ganha o código do cupom, o valor do desconto e mantém `totalValue` como o total final.
 - O consumo do uso deve ser atômico na transação do checkout (incremento condicional ao limite), para evitar que dois pedidos simultâneos passem do limite.
-- Erros de cupom devem usar `AppError` com código semântico (diretriz nº 8 da arquitetura).
+- Valores monetários não devem usar `float`/`double` no cálculo. Usar `Decimal` (como o schema já faz em `price` e `totalValue`) ou inteiros em centavos. O percentual é `Int`.
+- Como o cupom inválido não gera erro, a resposta do checkout deve informar que o cupom **não foi aplicado** e o motivo (por exemplo `couponApplied: false` e `couponReason`), para a tela explicar com clareza. Nomes dos campos são **Hipótese** para a spec definir.
+- Erros inesperados dentro da transação continuam usando `AppError` com código semântico (diretriz nº 8 da arquitetura).
 
 ## 4. Pendências
 
@@ -58,9 +62,9 @@ Custo aceito: o cliente só vê o desconto no fim. Uma rota de pré-visualizaç�
 
 ## 5. Perguntas em aberto
 
-1. **Limite de usos**: vale no total, por usuário, ou os dois?
-2. **Cupom esgotado ou expirado** no checkout: o pedido inteiro falha (409), ou o pedido segue sem o desconto?
-3. **Arredondamento** do desconto percentual (casas decimais e regra de arredondamento).
+1. **Arredondamento do valor em reais**: o percentual é inteiro, mas o desconto resultante (por exemplo 10% de R$ 19,99) tem centavos. Qual regra de arredondamento? **Hipótese**: arredondar para 2 casas, para o centavo mais próximo (half-up).
+2. **Faixa do percentual**: **Hipótese**: de 1 a 100, e 100% zera os itens elegíveis.
+3. **Cupom com valor fixo maior que os itens elegíveis**: **Hipótese**: o desconto é limitado ao subtotal elegível, para o total nunca ficar negativo (já decidido).
 
 ## 6. Fora do escopo (por decisão ou por não ter sido pedido)
 
