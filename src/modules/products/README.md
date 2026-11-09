@@ -39,3 +39,4 @@ CRUD de produtos, com leitura pública (com cache) e escrita restrita a administ
 - `console.error` usado em vez de `logger.error` em `listProducts` — inconsistência de padrão de logging (o resto do projeto usa Winston via `config/logger.js`).
 - Não há validação de payload (`express-validator`) em `create`/`update` — ex.: `price` negativo ou `stock` não numérico não são bloqueados antes de chegar ao Prisma.
 - Full-text search real não está implementado — o comentário no `schema.prisma` (`@@index([name])`) menciona a capacidade, mas a busca em `productRepository.findAll` usa `contains`/`insensitive` simples, não um índice de full-text do Postgres.
+- **Cupons (planejado)**: cupons poderão ser restritos a categorias ou produtos. Esta é a razão para o módulo ser consultado pela regra de cupom via service, e não via repository. Ver `docs/DECISOES-DE-PRODUTO.md`.

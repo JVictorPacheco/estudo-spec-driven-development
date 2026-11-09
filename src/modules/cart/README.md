@@ -37,3 +37,4 @@ Manter o estado transitório de uma futura compra (pré-checkout), sem persistê
 - **Sem persistência de fallback**: o carrinho existe apenas no Redis; se a instância do Redis for perdida/zerada sem snapshot, todos os carrinhos ativos são perdidos (não há espelhamento em Postgres).
 - **Sem limite de tamanho/valor**: não há validação de payload (`express-validator`) em `cartRoutes.js` — `quantity` negativa ou não numérica, por exemplo, não é bloqueada explicitamente antes de chegar ao `cartService`.
 - Acesso direto ao Prisma (`prisma.product.findUnique`) em vez de usar `productRepository`/`productService` — mesmo padrão de acoplamento cruzado observado em `orders`.
+- **Cupons**: por decisão de produto, o carrinho **não** conhece cupom. A aplicação acontece só no checkout (`orders`). Ver `docs/DECISOES-DE-PRODUTO.md`.

@@ -96,5 +96,9 @@ Ainda assim, o desenho de domínio (catálogo, carrinho, checkout, pagamento) é
 - **Segurança de borda**: `helmet` (headers HTTP seguros) e `cors` (aberto, sem allowlist configurada) aplicados globalmente; `compression` para reduzir payload de resposta.
 - **Documentação de API**: dependência `swagger-ui-express`/`yamljs` presente no `package.json`, mas o carregamento do Swagger está **comentado** em `server.js` — ou seja, não há documentação Swagger ativa hoje, apenas a intenção/infraestrutura para isso.
 
+## 8. Decisões de Produto Confirmadas
+
+O responsável pelo projeto confirmou (2026-11-09) que se trata de um **projeto de estudo de SDD**, o que transforma a "Hipótese" da seção 6 em fato. As decisões completas, o escopo de **cupons de desconto** (aprovado, ainda não implementado), as pendências e as perguntas em aberto estão em [`DECISOES-DE-PRODUTO.md`](DECISOES-DE-PRODUTO.md). Em resumo: pagamento simulado, admin criado por seed, estoque não devolvido no cancelamento, `tenantId` mantido como está e sem testes por ora.
+
 ---
 *Este documento descreve o propósito do sistema com base no comportamento observável do código. Deve ser atualizado sempre que uma nova funcionalidade de negócio for adicionada, removida ou tiver seu fluxo alterado.*

@@ -33,3 +33,4 @@ Nenhum diretamente — os pontos de entrada HTTP reais são os arquivos `*Routes
 - Para o contexto de negócio por trás destes módulos (fluxos, atores, propósito), consulte [`docs/OBJETIVO-DO-SISTEMA.md`](../../docs/OBJETIVO-DO-SISTEMA.md).
 - Risco de segurança transversal: `auth` permite autocadastro com `role: "ADMIN"` (ver `src/modules/auth/README.md` e `docs/ARQUITETURA-DO-SISTEMA.md`, risco nº 15).
 - O schema de dados que sustenta todos estes módulos está documentado em [`prisma/README.md`](../../prisma/README.md).
+- Decisões de produto, escopo de cupons e pendências: [`docs/DECISOES-DE-PRODUTO.md`](../../docs/DECISOES-DE-PRODUTO.md).

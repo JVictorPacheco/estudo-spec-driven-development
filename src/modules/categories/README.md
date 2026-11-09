@@ -34,3 +34,4 @@ CRUD de categorias, com leitura pública e escrita restrita a administradores.
 - **Middleware `adminOnly` duplicado**: implementação idêntica à de `src/modules/products/productRoutes.js`, sem reuso — deveria ser extraído para `src/middlewares/`.
 - Não há validação de payload (`express-validator`) em `create`/`update` — dados inválidos (ex.: `name` vazio) só falhariam por constraints do Prisma/Postgres, sem mensagens de erro amigáveis padronizadas.
 - Comentário no código (`categoryService.updateCategory`) menciona um "Webhook: category.updated -> Simulado" que **não existe de fato no código** (não há chamada de webhook nenhuma) — comentário desatualizado/aspiracional, não uma funcionalidade real.
+- **Cupons (planejado)**: cupons poderão ser restritos a categorias ou produtos. Esta é a razão para o módulo ser consultado pela regra de cupom via service, e não via repository. Ver `docs/DECISOES-DE-PRODUTO.md`.

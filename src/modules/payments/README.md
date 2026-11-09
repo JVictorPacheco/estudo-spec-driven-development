@@ -35,3 +35,4 @@ Persistir e transicionar o estado de `Payment`, mantendo `Order.status` consiste
 - **Acesso direto ao Prisma para a tabela `orders`**, em vez de usar `orderRepository`/`orderService` — comentário no próprio código (`paymentService.js`) admite a simplificação: *"Para atualizar order status cross-module, ideal via event ou service, aqui direto no prisma pra simplificar transaction"*.
 - **Sem devolução de estoque no cancelamento** — produtos decrementados no checkout (`orders`) não são restaurados quando um pagamento é cancelado.
 - Nenhuma integração real com gateway externo: `externalId` nunca é gravado por nenhum fluxo atual (campo existe no schema, mas está sempre `null` na prática observada no código).
+- **Decisão de produto** (`docs/DECISOES-DE-PRODUTO.md`): o pagamento é **simulado de propósito**, sem gateway nem webhook. A checagem de dono do pedido em `confirm`/`cancel` continua sendo débito real.

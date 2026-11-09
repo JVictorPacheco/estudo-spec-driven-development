@@ -17,7 +17,7 @@ const REQUIRED_SECTIONS = [
 // Seções exigidas apenas em módulos com implementação própria (não em agregadores)
 const MODULE_SECTIONS = ['Funcionalidades Existentes', 'Fluxos Importantes', 'Arquivos Críticos'];
 const AGGREGATORS = [path.join('src', 'modules')];
-const GLOBAL_DOCS = ['docs/ARQUITETURA-DO-SISTEMA.md', 'docs/OBJETIVO-DO-SISTEMA.md'];
+const GLOBAL_DOCS = ['docs/ARQUITETURA-DO-SISTEMA.md', 'docs/OBJETIVO-DO-SISTEMA.md', 'docs/DECISOES-DE-PRODUTO.md'];
 
 // Pastas relevantes: prisma/, subpastas de src/ e subpastas de src/modules/
 const dirs = ['prisma'];

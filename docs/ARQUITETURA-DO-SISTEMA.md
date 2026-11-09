@@ -121,5 +121,14 @@ Estas diretrizes devem ser seguidas por qualquer nova especificação (spec) imp
 11. **Nenhum campo de privilégio (`role`) pode ser aceito de input público**: cadastro público deve sempre criar `USER`; criação de `ADMIN` deve exigir um admin autenticado ou um processo fora da API.
 12. **Toda nova pasta em `src/` (e `prisma/`) deve ter README.md com as seções padrão**, e `npm run docs:check` deve passar antes de concluir a spec.
 
+## 10. Decisões de Produto que Afetam a Arquitetura
+
+Ver [`DECISOES-DE-PRODUTO.md`](DECISOES-DE-PRODUTO.md). Impactos técnicos:
+
+- **Admin só por seed** (risco nº 15): o `register` deve ignorar `role` e sempre criar `USER`. Hoje diverge da decisão.
+- **Cupons**: a regra vive só no checkout, em `orderService`, e o consumo do uso ocorre na mesma transação de `createOrderTransaction`. O carrinho não conhece cupom. Exige novos modelos no `prisma/schema.prisma` e respeita a diretriz nº 5 (comunicação entre módulos via service).
+- **Estoque e cupom não são devolvidos no cancelamento**: é decisão deliberada, e não débito. Não "corrigir" sem nova decisão de produto.
+- **`tenantId` e refresh token**: mantidos como estão, tratados como pendências futuras.
+
 ---
 *Este documento reflete o estado do código no momento da análise. Deve ser revisado sempre que uma mudança arquitetural significativa for introduzida (nova dependência crítica, novo padrão de comunicação entre módulos, mudança de convenção).*

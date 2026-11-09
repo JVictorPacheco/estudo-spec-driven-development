@@ -36,3 +36,5 @@ Manter `schema.prisma`: enums, modelos, relações e índices. A configuração 
 - Não há constraint de banco impedindo `Product.stock` negativo (relevante para o checkout; ver `src/modules/orders/README.md`).
 - `tenantId` existe no schema, mas não é filtrado pelos repositories (multi-tenancy incompleta; ver `docs/ARQUITETURA-DO-SISTEMA.md`, riscos nº 1 e nº 8).
 - `OrderItem` e `Order` não definem `onDelete` explícito. Hipótese: o comportamento padrão do Prisma (restrição) vale.
+- **Cupons (planejado)**: haverá novo modelo `Coupon` e campos de cupom e desconto em `Order`. Ver `docs/DECISOES-DE-PRODUTO.md`. Ainda não implementado.
+- A regra de `onDelete` para registros com histórico está **pendente de decisão de produto**.

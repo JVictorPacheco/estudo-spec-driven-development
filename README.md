@@ -73,5 +73,6 @@ npm run migrate
 ## Documentação
 
 - `docs/OBJETIVO-DO-SISTEMA.md` e `docs/ARQUITETURA-DO-SISTEMA.md`: documentos globais (base do Spec-Driven Development).
+- `docs/DECISOES-DE-PRODUTO.md`: decisões de produto, escopo de cupons, pendências e perguntas em aberto.
 - Cada pasta de `src/` e `prisma/` tem um `README.md` local.
 - `npm run docs:check`: verifica se todo README local e os documentos globais existem com as seções padrão. Rode antes de concluir qualquer spec.
