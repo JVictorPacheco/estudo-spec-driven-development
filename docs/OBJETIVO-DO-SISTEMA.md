@@ -80,7 +80,7 @@ Com base nas funcionalidades implementadas, o sistema resolve os seguintes probl
 
 ## 6. Visão de Produto
 
-**Hipótese** (não confirmável apenas pelo código, inferida do conjunto de funcionalidades e do nome do repositório "Spec Driven Development"): este projeto parece ser um **projeto de estudo/referência para o método Spec Driven Development aplicado a uma API de e-commerce**, servindo como base para a prática de escrever especificações técnicas antes da implementação. Isso é reforçado por:
+**Hipótese, confirmada em 2026-11-09 (ver seção 8)** (não confirmável apenas pelo código, inferida do conjunto de funcionalidades e do nome do repositório "Spec Driven Development"): este projeto parece ser um **projeto de estudo/referência para o método Spec Driven Development aplicado a uma API de e-commerce**, servindo como base para a prática de escrever especificações técnicas antes da implementação. Isso é reforçado por:
 - Comentários no código indicando decisões deliberadamente simplificadas ("omitido por brevidade", "simulado", "para simplificar transaction").
 - Ausência de integração real com gateway de pagamento (apenas estrutura de dados e fluxo simulado).
 - Multi-tenancy modelada no schema mas não implementada de ponta a ponta — sugere um recurso planejado para uma fase futura de evolução, não uma prioridade atual do produto.
